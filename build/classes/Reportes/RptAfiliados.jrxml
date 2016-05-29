@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<subDataset name="New Dataset 1">
+		<queryString language="SQL">
+			<![CDATA[SELECT        dbo.cargo_empleado.Nombre_cargo, dbo.Empleados.DUI_empleado, dbo.Empleados.nombres_empleado, dbo.Empleados.apellidos_empleado, 
+                         dbo.Empleados.Telefono, dbo.Empleados.fecha_ingreso, dbo.Empleados.estado_civil, dbo.Empleados.email
+FROM            dbo.cargo_empleado INNER JOIN
+                         dbo.Empleados ON dbo.cargo_empleado.id_cargo = dbo.Empleados.id_cargo
+WHERE        (dbo.Empleados.fecha_ingreso BETWEEN '08/29/2013' AND '08/30/2013')]]>
+		</queryString>
+		<field name="Nombre_cargo" class="java.lang.String"/>
+		<field name="DUI_empleado" class="java.lang.String"/>
+		<field name="nombres_empleado" class="java.lang.String"/>
+		<field name="apellidos_empleado" class="java.lang.String"/>
+		<field name="Telefono" class="java.lang.String"/>
+		<field name="fecha_ingreso" class="java.sql.Timestamp"/>
+		<field name="estado_civil" class="java.lang.String"/>
+		<field name="email" class="java.lang.String"/>
+		<group name="nombres_empleado">
+			<groupExpression><![CDATA[$F{nombres_empleado}]]></groupExpression>
+		</group>
+	</subDataset>
+	<queryString>
+		<![CDATA[SELECT        dbo.tipo_membresia.nombre_membre, dbo.afiliado.dui_socio, dbo.afiliado.nombre_socio, dbo.afiliado.apellidos_socio, dbo.afiliado.telefono_socio, 
+                         dbo.afiliado.email_socio, dbo.afiliado.direccion_socio, dbo.afiliado.profesion_socio, dbo.afiliado.estado_civil, dbo.afiliado.num_membresia, 
+                         dbo.afiliado.fecha_inicio, dbo.afiliado.fecha_fin, dbo.afiliado.fecha_ingreso
+FROM            dbo.afiliado INNER JOIN
+                         dbo.tipo_membresia ON dbo.afiliado.id_tipo_membresia = dbo.tipo_membresia.id_tipo_membresia
+]]>
+	</queryString>
+	<field name="nombre_membre" class="java.lang.String"/>
+	<field name="dui_socio" class="java.lang.String"/>
+	<field name="nombre_socio" class="java.lang.String"/>
+	<field name="apellidos_socio" class="java.lang.String"/>
+	<field name="telefono_socio" class="java.lang.String"/>
+	<field name="email_socio" class="java.lang.String"/>
+	<field name="direccion_socio" class="java.lang.String"/>
+	<field name="profesion_socio" class="java.lang.String"/>
+	<field name="estado_civil" class="java.lang.String"/>
+	<field name="num_membresia" class="java.lang.Integer"/>
+	<field name="fecha_inicio" class="java.sql.Timestamp"/>
+	<field name="fecha_fin" class="java.sql.Timestamp"/>
+	<field name="fecha_ingreso" class="java.sql.Timestamp"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="84" splitType="Stretch">
+			<staticText>
+				<reportElement x="20" y="20" width="347" height="32"/>
+				<textElement>
+					<font fontName="Century Gothic" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Afiliados del Jardín Botanico]]></text>
+			</staticText>
+			<line>
+				<reportElement x="10" y="68" width="545" height="1" forecolor="#0033FF"/>
+			</line>
+			<image>
+				<reportElement x="391" y="20" width="144" height="48"/>
+				<imageExpression><![CDATA["C:\\Users\\Molina\\Desktop\\LOGO_REPO.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="2" width="72" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="87" y="2" width="59" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Apellido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="156" y="2" width="75" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Email]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="243" y="2" width="70" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Membresía]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="327" y="2" width="64" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Inico]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="407" y="2" width="56" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Fin]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="477" y="2" width="61" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado Civil]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="26" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="72" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nombre_socio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="87" y="0" width="59" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{apellidos_socio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="156" y="0" width="75" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{email_socio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="243" y="0" width="70" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nombre_membre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="327" y="0" width="64" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{fecha_inicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="407" y="0" width="56" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{fecha_fin}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="477" y="0" width="61" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{estado_civil}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="20" y="12" width="126" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de expediciòn:]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="156" y="12" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="434" y="21" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="514" y="21" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

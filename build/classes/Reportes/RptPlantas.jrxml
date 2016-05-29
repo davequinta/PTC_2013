@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<subDataset name="New Dataset 1">
+		<queryString language="SQL">
+			<![CDATA[SELECT        dbo.cargo_empleado.Nombre_cargo, dbo.Empleados.DUI_empleado, dbo.Empleados.nombres_empleado, dbo.Empleados.apellidos_empleado, 
+                         dbo.Empleados.Telefono, dbo.Empleados.fecha_ingreso, dbo.Empleados.estado_civil, dbo.Empleados.email
+FROM            dbo.cargo_empleado INNER JOIN
+                         dbo.Empleados ON dbo.cargo_empleado.id_cargo = dbo.Empleados.id_cargo
+WHERE        (dbo.Empleados.fecha_ingreso BETWEEN '08/29/2013' AND '08/30/2013')]]>
+		</queryString>
+		<field name="Nombre_cargo" class="java.lang.String"/>
+		<field name="DUI_empleado" class="java.lang.String"/>
+		<field name="nombres_empleado" class="java.lang.String"/>
+		<field name="apellidos_empleado" class="java.lang.String"/>
+		<field name="Telefono" class="java.lang.String"/>
+		<field name="fecha_ingreso" class="java.sql.Timestamp"/>
+		<field name="estado_civil" class="java.lang.String"/>
+		<field name="email" class="java.lang.String"/>
+		<group name="nombres_empleado">
+			<groupExpression><![CDATA[$F{nombres_empleado}]]></groupExpression>
+		</group>
+	</subDataset>
+	<queryString>
+		<![CDATA[SELECT        dbo.clase_plantas.Nombre_clase, dbo.especie_plantas.Nombre_especie, dbo.familia_plantas.Nombre_familia, dbo.genero_plantas.Nombre_genero, 
+                         dbo.plantas.nombre_planta, dbo.region_plantas.Nombre_region, dbo.tipo_plantas.Nombre_tipo, dbo.uso_plantas.Nombre_uso, dbo.plantas.cantidad
+FROM            dbo.clase_plantas INNER JOIN
+                         dbo.plantas ON dbo.clase_plantas.id_clase = dbo.plantas.id_clase INNER JOIN
+                         dbo.especie_plantas ON dbo.plantas.id_especie = dbo.especie_plantas.id_especie INNER JOIN
+                         dbo.familia_plantas ON dbo.plantas.id_familia = dbo.familia_plantas.id_familia INNER JOIN
+                         dbo.genero_plantas ON dbo.plantas.id_genero = dbo.genero_plantas.id_genero INNER JOIN
+                         dbo.region_plantas ON dbo.plantas.id_region = dbo.region_plantas.id_region INNER JOIN
+                         dbo.tipo_plantas ON dbo.plantas.id_tipo = dbo.tipo_plantas.id_tipo INNER JOIN
+                         dbo.uso_plantas ON dbo.plantas.id_uso = dbo.uso_plantas.id_uso]]>
+	</queryString>
+	<field name="Nombre_clase" class="java.lang.String"/>
+	<field name="Nombre_especie" class="java.lang.String"/>
+	<field name="Nombre_familia" class="java.lang.String"/>
+	<field name="Nombre_genero" class="java.lang.String"/>
+	<field name="nombre_planta" class="java.lang.String"/>
+	<field name="Nombre_region" class="java.lang.String"/>
+	<field name="Nombre_tipo" class="java.lang.String"/>
+	<field name="Nombre_uso" class="java.lang.String"/>
+	<field name="cantidad" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="30" y="22" width="356" height="32"/>
+				<textElement>
+					<font fontName="Century Gothic" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de Plantas del Jardin]]></text>
+			</staticText>
+			<line>
+				<reportElement x="10" y="68" width="545" height="1" forecolor="#0033FF"/>
+			</line>
+			<image>
+				<reportElement x="416" y="22" width="131" height="47"/>
+				<imageExpression><![CDATA["C:\\Users\\Molina\\Desktop\\LOGO_REPO.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="1" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="2" width="69" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="81" y="2" width="56" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Clase]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="151" y="0" width="62" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Especie]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="229" y="2" width="48" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Familia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="291" y="2" width="57" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Genero]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="2" width="56" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Region]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="429" y="2" width="49" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Uso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="488" y="2" width="55" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="69" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nombre_planta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="81" y="0" width="56" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{Nombre_clase}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="151" y="0" width="62" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{Nombre_especie}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="229" y="0" width="48" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{Nombre_familia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="291" y="0" width="57" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{Nombre_genero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="360" y="0" width="56" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{Nombre_region}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="429" y="0" width="49" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{Nombre_uso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="488" y="0" width="44" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="11" width="136" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de Expediciòn: ]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="151" y="11" width="126" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="416" y="11" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="492" y="11" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<subDataset name="New Dataset 1">
+		<queryString language="SQL">
+			<![CDATA[SELECT        dbo.cargo_empleado.Nombre_cargo, dbo.Empleados.DUI_empleado, dbo.Empleados.nombres_empleado, dbo.Empleados.apellidos_empleado, 
+                         dbo.Empleados.Telefono, dbo.Empleados.fecha_ingreso, dbo.Empleados.estado_civil, dbo.Empleados.email
+FROM            dbo.cargo_empleado INNER JOIN
+                         dbo.Empleados ON dbo.cargo_empleado.id_cargo = dbo.Empleados.id_cargo
+WHERE        (dbo.Empleados.fecha_ingreso BETWEEN '08/29/2013' AND '08/30/2013')]]>
+		</queryString>
+		<field name="Nombre_cargo" class="java.lang.String"/>
+		<field name="DUI_empleado" class="java.lang.String"/>
+		<field name="nombres_empleado" class="java.lang.String"/>
+		<field name="apellidos_empleado" class="java.lang.String"/>
+		<field name="Telefono" class="java.lang.String"/>
+		<field name="fecha_ingreso" class="java.sql.Timestamp"/>
+		<field name="estado_civil" class="java.lang.String"/>
+		<field name="email" class="java.lang.String"/>
+		<group name="nombres_empleado">
+			<groupExpression><![CDATA[$F{nombres_empleado}]]></groupExpression>
+		</group>
+	</subDataset>
+	<parameter name="Desde" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Hasta" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT        dbo.cargo_empleado.Nombre_cargo, dbo.Empleados.DUI_empleado, dbo.Empleados.nombres_empleado, dbo.Empleados.apellidos_empleado, 
+                         dbo.Empleados.Telefono, dbo.Empleados.fecha_ingreso, dbo.Empleados.estado_civil, dbo.Empleados.email
+FROM            dbo.cargo_empleado INNER JOIN
+                         dbo.Empleados ON dbo.cargo_empleado.id_cargo = dbo.Empleados.id_cargo
+WHERE        (dbo.Empleados.fecha_ingreso BETWEEN $P{Desde} AND $P{Hasta})]]>
+	</queryString>
+	<field name="Nombre_cargo" class="java.lang.String"/>
+	<field name="DUI_empleado" class="java.lang.String"/>
+	<field name="nombres_empleado" class="java.lang.String"/>
+	<field name="apellidos_empleado" class="java.lang.String"/>
+	<field name="Telefono" class="java.lang.String"/>
+	<field name="fecha_ingreso" class="java.sql.Timestamp"/>
+	<field name="estado_civil" class="java.lang.String"/>
+	<field name="email" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="97" y="19" width="237" height="32"/>
+				<textElement>
+					<font fontName="Century Gothic" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lista de Empleados]]></text>
+			</staticText>
+			<line>
+				<reportElement x="10" y="68" width="545" height="1" forecolor="#0033FF"/>
+			</line>
+			<image>
+				<reportElement x="380" y="19" width="149" height="47"/>
+				<imageExpression><![CDATA["C:\\Users\\Molina\\Desktop\\LOGO_REPO.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="1" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="53" height="20"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DUI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="65" y="2" width="60" height="20"/>
+				<textElement textAlignment="Justified">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cargo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="139" y="2" width="74" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombres]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="227" y="2" width="66" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Apellidos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="304" y="2" width="61" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefono]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="2" width="48" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="451" y="0" width="78" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[email]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="26" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="53" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{DUI_empleado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="65" y="0" width="60" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{Nombre_cargo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="139" y="0" width="74" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nombres_empleado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="227" y="0" width="66" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{apellidos_empleado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="304" y="0" width="61" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{Telefono}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="0" width="48" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{fecha_ingreso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="451" y="0" width="78" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="11" width="162" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de Expediciòn:]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="178" y="11" width="100" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="22" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

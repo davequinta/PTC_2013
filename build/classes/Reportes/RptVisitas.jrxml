@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<subDataset name="New Dataset 1">
+		<queryString language="SQL">
+			<![CDATA[SELECT        dbo.cargo_empleado.Nombre_cargo, dbo.Empleados.DUI_empleado, dbo.Empleados.nombres_empleado, dbo.Empleados.apellidos_empleado, 
+                         dbo.Empleados.Telefono, dbo.Empleados.fecha_ingreso, dbo.Empleados.estado_civil, dbo.Empleados.email
+FROM            dbo.cargo_empleado INNER JOIN
+                         dbo.Empleados ON dbo.cargo_empleado.id_cargo = dbo.Empleados.id_cargo
+WHERE        (dbo.Empleados.fecha_ingreso BETWEEN '08/29/2013' AND '08/30/2013')]]>
+		</queryString>
+		<field name="Nombre_cargo" class="java.lang.String"/>
+		<field name="DUI_empleado" class="java.lang.String"/>
+		<field name="nombres_empleado" class="java.lang.String"/>
+		<field name="apellidos_empleado" class="java.lang.String"/>
+		<field name="Telefono" class="java.lang.String"/>
+		<field name="fecha_ingreso" class="java.sql.Timestamp"/>
+		<field name="estado_civil" class="java.lang.String"/>
+		<field name="email" class="java.lang.String"/>
+		<group name="nombres_empleado">
+			<groupExpression><![CDATA[$F{nombres_empleado}]]></groupExpression>
+		</group>
+	</subDataset>
+	<queryString>
+		<![CDATA[SELECT        dbo.tipo_visitante.nombre_tipo_vis, dbo.visitantes_particulares.cantidad, dbo.visitantes_particulares.ingreso
+FROM            dbo.tipo_visitante INNER JOIN
+                         dbo.visitantes_particulares ON dbo.tipo_visitante.id_tipo_visitante = dbo.visitantes_particulares.id_tipo_visitante]]>
+	</queryString>
+	<field name="nombre_tipo_vis" class="java.lang.String"/>
+	<field name="cantidad" class="java.math.BigDecimal"/>
+	<field name="ingreso" class="java.sql.Timestamp"/>
+	<variable name="cantidad_SUM" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{cantidad}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="22" y="14" width="241" height="32"/>
+				<textElement>
+					<font fontName="Century Gothic" size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de Visitas ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="10" y="78" width="545" height="1" forecolor="#3333FF"/>
+			</line>
+			<image>
+				<reportElement x="311" y="14" width="244" height="48"/>
+				<imageExpression><![CDATA["C:\\Users\\Molina\\Desktop\\LOGO_REPO.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="11" splitType="Stretch"/>
+	</pageHeader>
+	<summary>
+		<band height="344" splitType="Stretch">
+			<pie3DChart>
+				<chart>
+					<reportElement x="10" y="19" width="545" height="284"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{nombre_tipo_vis}]]></keyExpression>
+					<valueExpression><![CDATA[$F{cantidad}]]></valueExpression>
+				</pieDataset>
+				<pie3DPlot>
+					<plot/>
+					<itemLabel/>
+				</pie3DPlot>
+			</pie3DChart>
+			<staticText>
+				<reportElement x="22" y="314" width="144" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Fecha de expedicion:]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="166" y="314" width="119" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="411" y="316" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="491" y="316" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

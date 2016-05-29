@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<subDataset name="New Dataset 1">
+		<queryString language="SQL">
+			<![CDATA[SELECT        dbo.cargo_empleado.Nombre_cargo, dbo.Empleados.DUI_empleado, dbo.Empleados.nombres_empleado, dbo.Empleados.apellidos_empleado, 
+                         dbo.Empleados.Telefono, dbo.Empleados.fecha_ingreso, dbo.Empleados.estado_civil, dbo.Empleados.email
+FROM            dbo.cargo_empleado INNER JOIN
+                         dbo.Empleados ON dbo.cargo_empleado.id_cargo = dbo.Empleados.id_cargo
+WHERE        (dbo.Empleados.fecha_ingreso BETWEEN '08/29/2013' AND '08/30/2013')]]>
+		</queryString>
+		<field name="Nombre_cargo" class="java.lang.String"/>
+		<field name="DUI_empleado" class="java.lang.String"/>
+		<field name="nombres_empleado" class="java.lang.String"/>
+		<field name="apellidos_empleado" class="java.lang.String"/>
+		<field name="Telefono" class="java.lang.String"/>
+		<field name="fecha_ingreso" class="java.sql.Timestamp"/>
+		<field name="estado_civil" class="java.lang.String"/>
+		<field name="email" class="java.lang.String"/>
+		<group name="nombres_empleado">
+			<groupExpression><![CDATA[$F{nombres_empleado}]]></groupExpression>
+		</group>
+	</subDataset>
+	<parameter name="Desde" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Hasta" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT        dbo.mantenimiento.nombre_mante, dbo.zonas.nombre_zona, dbo.mante_zonas.fecha
+FROM            dbo.mante_zonas INNER JOIN
+                         dbo.mantenimiento ON dbo.mante_zonas.id_mantenimiento = dbo.mantenimiento.id_mantenimiento INNER JOIN
+                         dbo.zonas ON dbo.mante_zonas.Num_zona = dbo.zonas.Num_zona]]>
+	</queryString>
+	<field name="nombre_mante" class="java.lang.String"/>
+	<field name="nombre_zona" class="java.lang.String"/>
+	<field name="fecha" class="java.sql.Timestamp"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="80" splitType="Stretch">
+			<staticText>
+				<reportElement x="100" y="21" width="359" height="32"/>
+				<textElement>
+					<font fontName="Century Gothic" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de Mantenimiento por Área]]></text>
+			</staticText>
+			<line>
+				<reportElement x="10" y="68" width="545" height="1" forecolor="#0033FF"/>
+			</line>
+			<image>
+				<reportElement x="0" y="1" width="91" height="79"/>
+				<imageExpression><![CDATA["C:\\Users\\Molina\\Desktop\\EXPO TECNICA\\PTC_2013\\src\\img\\logo.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="464" y="3" width="91" height="77"/>
+				<imageExpression><![CDATA["C:\\Users\\Molina\\Desktop\\EXPO TECNICA\\PTC_2013\\src\\img\\logo.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="73" y="2" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mantenimiento dado:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="203" y="2" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Zona cuidada:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="339" y="2" width="136" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha en que se realizó:]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="73" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nombre_mante}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="203" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nombre_zona}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="359" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="10" y="22" width="100" height="20"/>
+				<textElement>
+					<font fontName="Century Gothic" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
